@@ -4,6 +4,9 @@ import { Box, Button, Heading, Text } from "rebass";
 import { Input } from "@rebass/forms";
 //import { buttonStyles,inputStyles } from "./Theme";
 
+const loginSuccessCode = 200;
+const loginFailCode = 400;
+
 function Signup() {
   // Declared state variables "username" and "userpass" and their setters "setName" and "setPass"
   const [username, setName] = useState("");
@@ -13,10 +16,13 @@ function Signup() {
   const handleSubmit = (event) => {
     // Prevent the default form submit behavior
     event.preventDefault();
-    console.log(`Username : ${username}`);
-    console.log(`Password : ${userpass}`);
+    // console.log(`Username : ${username}`);
+    // console.log(`Password : ${userpass}`);
   };
   console.log("Rendering...");
+
+
+  
   return (
     <Box className="centre">
       <Heading>Login to pick a Challenge</Heading>
