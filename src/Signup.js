@@ -2,27 +2,43 @@ import React from "react";
 import { useState } from "react";
 import { Box, Button, Heading, Text } from "rebass";
 import { Input } from "@rebass/forms";
-//import { buttonStyles,inputStyles } from "./Theme";
-
+//import "../src/Signup.css"
 const loginSuccessCode = 200;
 const loginFailCode = 400;
 
 function Signup() {
-  // Declared state variables "username" and "userpass" and their setters "setName" and "setPass"
+
   const [username, setName] = useState("");
   const [userpass, setPass] = useState("");
 
-  // Function called when the form is submitted
   const handleSubmit = (event) => {
-    // Prevent the default form submit behavior
     event.preventDefault();
-    // console.log(`Username : ${username}`);
-    // console.log(`Password : ${userpass}`);
-  };
-  console.log("Rendering...");
 
+    const SignupEndpoint = "http://localhost:3000/user-service/login";
 
+    const loginData = {
+      loginName: username,
+      loginPassword: userpass,
+
+    };
+    fetch(SignupEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(loginData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
   
+
+      });
+
+    
+  };
+
   return (
     <Box className="centre">
       <Heading>Login to pick a Challenge</Heading>
@@ -31,9 +47,6 @@ function Signup() {
         <Box className="loginpage">
           <Text>Username </Text>
           <Input
-            sx={{
-              width: "250px",
-            }}
             id="username"
             type="text"
             onChange={(event) => setName(event.target.value)}
@@ -42,8 +55,8 @@ function Signup() {
 
         <Box className="loginpage">
           <Text>Password </Text>
-          <Input 
-          // sx = {{...inputStyles}}
+          <Input
+            // sx = {{...inputStyles}}
             id="userpass"
             type="password"
             onChange={(event) => setPass(event.target.value)}
@@ -51,7 +64,7 @@ function Signup() {
         </Box>
 
         <Box>
-          <Button variant = "primary" type="submit" id="submit_Btn">
+          <Button variant="primary" type="submit" id="submit_Btn" color="black">
             Login
           </Button>
         </Box>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "webpack": "webpack",
-    "start": "node server/index.js",
+    "start": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,7 +34,6 @@
     "image-webpack-loader": "^8.1.0",
     "node-sass": "^8.0.0",
     "path": "^0.12.7",
-    "react-router-dom": "^6.8.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.2",
@@ -48,6 +47,7 @@
     "@rebass/forms": "^4.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.2",
     "rebass": "^4.0.7"
   }
 }
