@@ -1,15 +1,16 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Heading, Text } from "rebass";
 import { Input } from "@rebass/forms";
-//import "../src/Signup.css"
+
 const loginSuccessCode = 200;
 const loginFailCode = 400;
 
 function Signup() {
-
   const [username, setName] = useState("");
   const [userpass, setPass] = useState("");
+  const navigation = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,29 +20,31 @@ function Signup() {
     const loginData = {
       loginName: username,
       loginPassword: userpass,
-
     };
     fetch(SignupEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify(loginData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    }).then(async (response) => {
+      if (response.status === loginFailCode) {
+        alert("Login Failed");
+      } else if (response.status === loginSuccessCode) {
+        const data = await response.json();
         console.log(data);
-  
-
-      });
-
-    
+        navigation("/Dashboard", {
+          state: {
+            username: data.username,
+          },
+        });
+      }
+    });
   };
 
   return (
     <Box className="centre">
-      <Heading>Login to pick a Challenge</Heading>
+      <h1>Login to pick a Challenge</h1>
 
       <form onSubmit={handleSubmit}>
         <Box className="loginpage">
@@ -56,7 +59,6 @@ function Signup() {
         <Box className="loginpage">
           <Text>Password </Text>
           <Input
-            // sx = {{...inputStyles}}
             id="userpass"
             type="password"
             onChange={(event) => setPass(event.target.value)}
@@ -64,21 +66,22 @@ function Signup() {
         </Box>
 
         <Box>
-          <Button variant="primary" type="submit" id="submit_Btn" color="black">
+          <Button
+            variant="primary"
+            type="submit"
+            data-testid="submit_btn"
+            color="black"
+            disabled={!username || !userpass}
+          >
             Login
           </Button>
         </Box>
 
-        <br></br>
-        <br></br>
+        <br />
+        <br />
       </form>
     </Box>
   );
 }
 
 export default Signup;
-// const buttonStyles = {
-//   color : "red",
-//   bg : "black"
-
-// }
