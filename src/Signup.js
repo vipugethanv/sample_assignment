@@ -28,11 +28,12 @@ function Signup() {
       },
       body: JSON.stringify(loginData),
     }).then(async (response) => {
+      console.log("response" , response.status)
       if (response.status === loginFailCode) {
         alert("Login Failed");
       } else if (response.status === loginSuccessCode) {
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         navigation("/Dashboard", {
           state: {
             username: data.username,
@@ -46,11 +47,12 @@ function Signup() {
     <Box className="centre">
       <h1>Login to pick a Challenge</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="login-form">
         <Box className="loginpage">
           <Text>Username </Text>
           <Input
             id="username"
+            data-testid="userField"
             type="text"
             onChange={(event) => setName(event.target.value)}
           />
@@ -60,6 +62,7 @@ function Signup() {
           <Text>Password </Text>
           <Input
             id="userpass"
+            data-testid="passField"
             type="password"
             onChange={(event) => setPass(event.target.value)}
           />

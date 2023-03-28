@@ -6,7 +6,7 @@ function Dashboard() {
   return (
     <div>
       <h1>This is Dashboard</h1>
-      <h2>{`Welcome ${location.state.username}`}</h2>
+      <h2>{`Welcome ${location?.state?.username}`}</h2>
     </div>
   );
 }
